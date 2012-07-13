@@ -1,0 +1,64 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Security POST Test</title>
+
+<link href="styles.css" rel="stylesheet" type="text/css" media="screen" />
+<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css' />
+
+<script type="text/javascript">
+    var counter = 2;
+    function addRow() {
+        //document.getElementById('rows').innerHTML += "Name: <input type=\"text\" id=\"name" + counter + "\"></input> Value: <input type=\"text\" id=\"val" + counter + "\"></input><br/>";
+        var newcontent = document.createElement('div');
+        newcontent.innerHTML = "Name: <input type=\"text\" id=\"name" + counter + "\"></input> Value: <input type=\"text\" id=\"val" + counter + "\"></input><br/>";
+        document.getElementById('rows').appendChild(newcontent);
+        counter ++;
+    }
+    
+    function submitIt() {
+        document.forms['realform'].action = document.getElementById('form_action').value;
+        
+        for (i=1; i < counter; i++) {
+            var my_name = document.getElementById('name' + i).value;
+            var my_value = document.getElementById('val' + i).value;
+            var newcontent = document.createElement('div');
+            newcontent.innerHTML = "<input name=\"" + my_name + "\" value=\"" + my_value + "\"></input>";
+            document.getElementById('realform_div').appendChild(newcontent);
+        }
+        
+        //document.forms["realform"].submit();
+        document.forms['realform'].submit.click();
+    }
+</script>
+
+</head>
+<body>
+
+<div id="page">
+    <h1>Security POST Test</h1>
+    <h2>Use the form below to mimic a remote form, then enter the POST URL and submit.</h2>
+    <input type="button" value="Add Row" onclick="addRow()"></input>
+    <br /><br />
+    <form>
+        <div id="rows">
+        Name: <input type="text" id="name1"></input> Value: <input type="text" id="val1"></input><br/>
+        
+        </div>
+        <br/>
+        Form Action: <input type="text" id="form_action"></input>
+        <input type="button" value="Submit Form" onclick="submitIt()"></input>
+    </form>
+    
+    <form method="post" action="" id="realform">
+        <div id="realform_div" style="display: none">
+            <input type="submit" name="submit" value="" onclick="this.form.target='_blank';return true;" />
+        </div>
+    </form>
+</div>
+    
+</body>
+</html>
